@@ -1,21 +1,64 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { AntDesign  } from '@expo/vector-icons'
+
+const Drawer = createDrawerNavigator();
+
+import Home from './src/views/Home'
+import Contato from './src/views/Contato'
+import Sobre from './src/views/Sobre'
+import CustomDrawer from './src/components/CustomDrawer';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerContent={CustomDrawer}
+        drawerStyle={{
+          backgroundColor: '#000',
+          width: 310,
+        }}
+        drawerContentOptions={{
+          activeTintColor: '#FFF',
+          inactiveTintColor: '#FFF',
+          labelStyle: {
+            padding: 0,
+            margin: 0
+          }
+        }}
+      >
+        <Drawer.Screen name="Home"
+          component={Home}
+          options={{
+            drawerIcon: () => (
+              <AntDesign
+                name="home"
+                color="#6b6b6b"
+                size={20}
+              />
+            )
+          }} />
+        <Drawer.Screen name="Contato" component={Contato}  options={{
+            drawerIcon: () => (
+              <AntDesign
+                name="contacts"
+                color="#6b6b6b"
+                size={20}
+              />
+            )
+          }}/>
+        <Drawer.Screen name="Sobre" component={Sobre} options={{
+            drawerIcon: () => (
+              <AntDesign
+                name="infocirlceo"
+                color="#6b6b6b"
+                size={20}
+              />
+            )
+          }}/>
+      </Drawer.Navigator>
+    </NavigationContainer >
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
